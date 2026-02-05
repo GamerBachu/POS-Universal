@@ -1,0 +1,36 @@
+name: Build and Require Approval
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
+        working-directory: pos-universal
+      - name: Build
+        run: npm run build
+        working-directory: pos-universal
+
+  require-approval:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == false
+    steps:
+      - name: Require approval before merge
+        run: |
+          echo "This PR requires approval before merging."
+
+# To enforce approval before merging, set branch protection rules in GitHub settings:
+# - Require pull request review before merging
+# - Require status checks to pass (build)
