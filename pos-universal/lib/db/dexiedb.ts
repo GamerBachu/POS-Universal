@@ -9,7 +9,7 @@ class POSUniversalDexie extends Dexie {
         super("POS_UniversalDB_0012");
         this.version(1).stores({
             products: "++id,name,price,stock",
-            users: "++id,guid,name,email,username,isActive",
+            users: "++id,guid,name,email,username,password,isActive",
         });
     }
 }

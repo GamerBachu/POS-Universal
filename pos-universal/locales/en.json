@@ -1,0 +1,10 @@
+{
+  "login": {
+    "title": "Login",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "Username",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "******************",
+    "signInButton": "Sign In"
+  }
+}

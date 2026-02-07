@@ -9,7 +9,7 @@ POS-Universal is a Next.js 16 application built with the App Router, TypeScript,
 - **Language**: TypeScript with strict mode enabled
 - **Linting**: ESLint with Next.js core web vitals and TypeScript rules
 - **API Utilities**: Shared fetchers in `lib/api/`
-- **Local Database**: Dexie setup in `lib/db/dexieDb.ts
+- **Local Database**: Dexie setup in `lib/db/dexieDb.ts`
 
 ## Key Conventions
 - Use path alias `@/*` for imports (maps to project root)
@@ -27,7 +27,7 @@ POS-Universal is a Next.js 16 application built with the App Router, TypeScript,
 
 ## Code Patterns
 - **Layout**: Root layout in `app/layout.tsx` handles fonts and metadata
-- **Pages**: Create route-based components in `app/` subdirectories (e.g., `app/dashboard/page.tsx`)
+- **Pages**: Create route-based components in `app/` subdirectories (e.g., `app/(auth)/dashboard/page.tsx`)
 - **Styling**: Use Tailwind classes with CSS custom properties for consistent theming
 - **Images**: Use Next.js `Image` component for optimization
 
@@ -37,25 +37,33 @@ app/
   layout.tsx          # Root layout with fonts and theme
   page.tsx            # Home page
   globals.css         # Tailwind imports and custom variables
-  dashboard/
-    page.tsx          # /dashboard route
-    components/
-      SalesChart.tsx  # Dashboard-specific components
+  (auth)/
+    login/page.tsx
+    register/page.tsx
+    profile/page.tsx
+    dashboard/page.tsx
+    layout.tsx
+    page.tsx
+  (common)/
+    error/page.tsx
+    layout.tsx
+    page.tsx
 lib/
   api/                # Shared API fetchers/utilities
     products.ts       # Example: product API
     users.ts          # Example: user API
     index.ts          # Central API exports
-  db/                 # RXDB database logic
-    rxdb.ts           # RXDB initialization
-    schemas/          # RXDB collection schemas
-      product.schema.ts
+  db/                 # Dexie database logic
+    dexiedb.ts        # Dexie initialization
     types/            # TypeScript types for collections
       product.d.ts
+      user.d.ts
+public/
+types/
 ```
 
 ## Best Practices
-- Use Dexie for local IndexedDB storage. See `lib/db/dexieDb.ts` for setup and usage examples.
+- Use Dexie for local IndexedDB storage. See `lib/db/dexiedb.ts` for setup and usage examples.
 - Leverage Next.js App Router for nested layouts and loading states
 - Use TypeScript interfaces for POS data models (products, transactions, inventory)
 - Centralize all data access in `lib/api/` and local DB logic in `lib/db/` for maintainability
