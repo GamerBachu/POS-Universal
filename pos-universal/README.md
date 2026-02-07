@@ -1,3 +1,15 @@
+## Local Database: Dexie Setup
+
+Dexie is used for local IndexedDB storage. See `lib/db/dexieDb.ts` for setup.
+
+### Example Dexie Usage
+```typescript
+import { db } from './lib/db/dexieDb';
+// Add a product
+await db.products.add({ id: '1', name: 'Sample', price: 10, stock: 100 });
+// Query users
+const users = await db.users.toArray();
+```
 # POS-Universal
 
 POS-Universal is a modern Point of Sale (POS) system built with Next.js 16, TypeScript, and Tailwind CSS v4. It is designed to support multiple sales channels (in-store, online, mobile) from a single unified platform.

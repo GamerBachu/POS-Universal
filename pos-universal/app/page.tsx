@@ -1,11 +1,37 @@
+'use client';
+import { useEffect, useState } from 'react';
 
+import { userApi } from "@/lib/api";
 
 export default function Home() {
+
+  useEffect(() => {
+
+    userApi.post({
+      guid: "12345678-1234-1234-1234-123456789012",
+      name: "abc",
+      email: "abc@example.com",
+      username: "abc123",
+      password: "@S@",
+      isActive: true,
+      createdDate: "2023-01-01T00:00:00Z",
+      createdBy: 1,
+      updatedDate: "2023-01-01T00:00:00Z",
+      updatedBy: 1,
+      deletedDate: "",
+      deletedBy: 0
+    }).then(() => {
+      console.log("User added successfully!");
+    }).catch((error) => {
+      console.error("Error adding user:", error);
+    });
+
+
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-       
-      </main>
+    <div className="p-4">
+      <h2>ABC</h2>
     </div>
   );
-}
+} 
