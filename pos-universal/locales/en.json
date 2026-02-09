@@ -1,10 +1,28 @@
 {
-  "login": {
-    "title": "Login",
+  "common": {
+    "welcome": "Welcome to POS Universal!",
+
     "usernameLabel": "Username",
     "usernamePlaceholder": "Username",
     "passwordLabel": "Password",
     "passwordPlaceholder": "******************",
-    "signInButton": "Sign In"
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordPlaceholder": "******************",
+    "loading": "Loading...",
+    "error": "An error occurred. Please try again."
+  },
+
+  "login": {
+    "title": "Login",
+    "submit": "Log In",
+    "successMessage": "Login successful! Redirecting...",
+    "invalidCredentials": "Invalid username or password. Please try again."
+  },
+  "register": {
+    "title": "Register",
+    "submit": "Register",
+    "successMessage": "Registration successful! Redirecting...",
+    "passwordMismatch": "Passwords do not match. Please try again.",
+    "usernameTaken": "Username is already taken. Please choose another one."
   }
 }

@@ -3,7 +3,7 @@
 import React, { useActionState } from "react";
 import resource from "@/locales/en.json";
 import { userApi } from "@/lib/api/users";
-
+import Link from "next/link";
 
 interface ActionState {
   success: boolean | null;
@@ -11,28 +11,34 @@ interface ActionState {
 }
 
 export default function LoginPage() {
-
-  async function loginAction(prevState: ActionState, formData: FormData): Promise<ActionState> {
+  async function loginAction(
+    prevState: ActionState,
+    formData: FormData,
+  ): Promise<ActionState> {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
-
-
     if (!username || !password) {
-      return { success: false, message: "Please enter a valid username and password." };
+      return {
+        success: false,
+        message: resource.login.invalidCredentials,
+      };
     }
- 
+
     try {
       const response = await userApi.postLogin(username, password);
       if (response) {
-        return { success: true, message: "Login successful!" };
+        return { success: true, message: resource.login.successMessage };
       }
-      return { success: false, message: "Invalid username or password." };
-    } catch (error) {
-      return { success: false, message: "An error occurred during login." };
+      return { success: false, message: resource.login.invalidCredentials };
+    } catch {
+      return { success: false, message: resource.common.error };
     }
   }
-  const [state, formAction, isPending] = useActionState(loginAction, { message: "", success: null });
+  const [state, formAction, isPending] = useActionState(loginAction, {
+    message: "",
+    success: null,
+  });
 
   return (
     <div className="w-full max-w-md mx-auto">
@@ -45,14 +51,14 @@ export default function LoginPage() {
             className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
             htmlFor="username"
           >
-            {resource.login.usernameLabel}
+            {resource.common.usernameLabel}
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base"
             id="username"
             name="username"
             type="text"
-            placeholder={resource.login.usernamePlaceholder}
+            placeholder={resource.common.usernamePlaceholder}
             required
           />
         </div>
@@ -61,14 +67,14 @@ export default function LoginPage() {
             className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
             htmlFor="password"
           >
-            {resource.login.passwordLabel}
+            {resource.common.passwordLabel}
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base"
             id="password"
             name="password"
             type="password"
-            placeholder={resource.login.passwordPlaceholder}
+            placeholder={resource.common.passwordPlaceholder}
             required
           />
         </div>
@@ -78,18 +84,27 @@ export default function LoginPage() {
             type="submit"
             disabled={isPending}
           >
-            {isPending ? "Signing in..." : resource.login.signInButton}
+            {`${resource.login.submit}${isPending ? "..." : ""}`}
           </button>
 
           {state.message && (
             <p
-              className={`text-sm text-center ${
-                state.success ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
-              }`}
+              className={`text-sm text-center ${state.success
+                ? "text-green-600 dark:text-green-400"
+                : "text-red-600 dark:text-red-400"
+                }`}
             >
               {state.message}
             </p>
           )}
+        </div>
+        <div className="mt-1 pt-1 border-t border-gray-200 dark:border-gray-700 text-center">
+          <Link
+            href="/register"
+            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold text-sm transition-colors"
+          >
+            Create a new account
+          </Link>
         </div>
       </form>
     </div>
